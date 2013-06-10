@@ -8,24 +8,12 @@ add_theme_support( 'woocommerce' );
 
 # Register Sidebars
 if ( function_exists('register_sidebar') )
-   register_sidebar(array('name' => 'Sidebar','before_widget' => '<div class="box">','after_widget' => '</div>',));
+   register_sidebar(array('name' => 'Sidebar','before_widget' => '<div id="%1$s" class="box %2$s">','after_widget' => '</div>',));
+   register_sidebar(array('name' => 'HP Testimonials','before_widget' => '<div id="%1$s" class="box %2$s">','after_widget' => '</div>',));
    register_sidebar(array('name' => 'Image Scroll','before_widget' => '<div id="%1$s" class="box %2$s">','after_widget' => '</div>',));
    register_sidebar(array('name' => 'Footer 1','before_widget' => '<div id="%1$s" class="widget-box %2$s">','after_widget' => '</div>',));
    register_sidebar(array('name' => 'Footer 2','before_widget' => '<div id="%1$s" class="widget-box %2$s">','after_widget' => '</div>',));
-
-register_post_type('services', array(
-	'label' => 'Services',
-	'public' => true,
-	'show_ui' => true,
-	'capability_type' => 'post',
-	'hierarchical' => true,
-	'rewrite' => array('slug' => 'services'),
-	'query_var' => true,
-	'supports' => array('title', 'editor', 'excerpt', 'thumbnail')
-	) );
-
-	add_theme_support('post-thumbnails', array( 'post', 'page', services ) );
-
+	
 function register_my_menus() {
   register_nav_menus(
     array(
@@ -36,6 +24,37 @@ function register_my_menus() {
   );
 }
 add_action( 'init', 'register_my_menus' );
+
+register_post_type('team', array(
+	'label' => 'Team',
+	'public' => true,
+	'show_ui' => true,
+	'capability_type' => 'post',
+	'hierarchical' => true,
+	'rewrite' => array('slug' => 'team'),
+	'query_var' => true,
+	'supports' => array('title', 'editor', 'excerpt', 'thumbnail')
+	) );
+
+	add_theme_support('post-thumbnails', array( team ) );
+
+# Post Thumbnails
+if ( function_exists( 'add_theme_support' ) ) { // Added in 2.9
+	add_theme_support( 'post-thumbnails' );
+}
+
+# Get Thumbnail URL
+function get_image_url(){
+	$image_id = get_post_thumbnail_id();
+	$image_url = wp_get_attachment_image_src($image_id,'large');
+	$image_url = $image_url[0];
+	echo $image_url;
+	}	
+
+if ( function_exists( 'add_theme_support' ) ) {
+	add_theme_support( 'post-thumbnails', array( 'page' ) );
+        set_post_thumbnail_size( 420, 240 );
+}
 
 # Displays the comment authors gravatar if available
 function dp_gravatar($size=50, $attributes='', $author_email='') {
@@ -57,11 +76,6 @@ function new_excerpt_more($more) {
 	return '<a class="moretag" href="'. get_permalink($post->ID) . '">Read More</a>';
 }
 add_filter('excerpt_more', 'new_excerpt_more');
-
-# Adds excerpts for pages
-add_post_type_support( 'page', 'excerpt' );
-
-
 
 # custom excerpt length  -  p h p   e c h o   e x c e r p t ( 4 5 )
 function excerpt($limit) {
@@ -116,28 +130,6 @@ function wp_pagination()
         'total' => $wp_query->max_num_pages
     ));
 }
-
-if (!function_exists('get_image_path'))  {
-function get_image_path() {
-	global $post;
-	$id = get_post_thumbnail_id();
-	// check to see if NextGen Gallery is present
-	if(stripos($id,'ngg-') !== false && class_exists('nggdb')){
-	$nggImage = nggdb::find_image(str_replace('ngg-','',$id));
-	$thumbnail = array(
-	$nggImage->imageURL,
-	$nggImage->width,
-	$nggImage->height
-	);
-	// otherwise, just get the wp thumbnail
-	} else {
-	$thumbnail = wp_get_attachment_image_src($id,'full', true);
-	}
-	$theimage = $thumbnail[0];
-	return $theimage;
-}
-}
-
 
 remove_filter('term_description','wpautop');
 

@@ -14,59 +14,87 @@
 
 <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width" />
 
+<link rel="stylesheet" href="<?php bloginfo('template_directory'); ?>/css/bootstrap.min.css" />
 <link rel="stylesheet" type="text/css" href="<?php bloginfo('stylesheet_url'); ?>" media="screen" />
-<link href='http://fonts.googleapis.com/css?family=Merriweather' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Merriweather' rel='stylesheet' />
 <link rel="shortcut icon" href="<?php bloginfo('template_url'); ?>/favicon.ico" />
 
 <?php 
-   wp_enqueue_script('jquery');
-   wp_enqueue_script('css3-mediaqueries', get_stylesheet_directory_uri() .'/js/css3-mediaqueries.js');
-   wp_enqueue_script('modernizr', get_stylesheet_directory_uri() .'/js/modernizr.js');
-   wp_enqueue_script('responsive-nav', get_stylesheet_directory_uri() .'/js/responsive-nav.js');
+ wp_enqueue_script('css3-mediaqueries', get_stylesheet_directory_uri() .'/js/bootstrap.min.js');
+ wp_enqueue_script('modernizr', get_stylesheet_directory_uri() .'/js/modernizr.js');
+
 ?>
+
 <?php wp_head(); ?>
+
+<script src="//use.typekit.net/hwo1dam.js"></script>
+<script>try{Typekit.load();}catch(e){}</script>
 <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/jquery-ui.min.js"></script>
-<script type="text/javascript" src="//use.typekit.net/hwo1dam.js"></script>
-<script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+
 </head> 
 
 <body <?php body_class(); ?>>
+
    <header>
+<!-- Top Bar -->   
       <div id="topbar">
-         <div class="container12">
-            <div class="column4">
-               <p><?php bloginfo('description'); ?></p>
-            </div>           
-            <div class="column8">
-               <ul id="social-links">
-                  <li><a id="twitter" href="" target="_blank" >twitter</a></li>
-                  <li><a id="google" href="" target="_blank" >google</a></li>
-                  <li><a id="facebook" href="" target="_blank" >facebook</a></li>
-                  <li><a id="linkedin" href="" target="_blank" >linkedin</a></li>
-                  <li><a id="youtube" href="" target="_blank" >linkedin</a></li>
-                  <li><a id="rss" href="" target="_blank" >rss</a></li>
-               </ul>
+         <div class="container">
+            <div class="row">
+               <div class="span4">
+                  <p><?php bloginfo('description'); ?></p>
+               </div>
+               <div class="span8">   
+                  <ul id="social-links" class="unstyled">
+                     <li><a id="twitter" href="" target="_blank" >twitter</a></li>
+                     <li><a id="google" href="" target="_blank" >google</a></li>
+                     <li><a id="facebook" href="" target="_blank" >facebook</a></li>
+                     <li><a id="linkedin" href="" target="_blank" >linkedin</a></li>
+                     <li><a id="youtube" href="" target="_blank" >linkedin</a></li>
+                     <li><a id="rss" href="" target="_blank" >rss</a></li>
+                  </ul>
+               </div>   
+            </div>  
+         </div>   
+      </div> <!-- topbar end -->
+<!-- Main Header -->   
+      <div class="container">
+         <div class="row">
+            <div id="treatments" class="span4">
+               <div class="trigger">
+                  <p>Treatments</p>
+                  <?php wp_nav_menu( array('menu' => 'treatments' )); ?>
+               </div>   
+            </div>
+            
+            <div id="logo" class="span4">
+               <h1><a href="<?php echo home_url(); ?>" ><?php bloginfo('name'); ?></a></h1>
+            </div>
+            
+            <div id="contacts" class="span4">
+               <p><a href="tel:02071234567">020 7935 2617</a><span>13-26 Manchester St, London, W1U 4DJ</span></p>
             </div>
          </div>
-      </div>    <!-- topbar end -->
-   
-      <div class="wrap container12">
-         <div id="treatments" class="column4">
-            <p>Treatments</p>
-         </div>
-         <div id="logo" class="column4">
-            <h1><a href="<?php echo home_url(); ?>" ><?php bloginfo('name'); ?></a></h1>
-         </div>
-         <div id="contacts" class="column4">
-            <p><a href="tel:02071234567">0207-123-4567</a><span>13-26 Manchester St, London, W1U 4DJ</span></p>
-         </div>
-      </div>    
+      </div>     
    </header>
-
-   <div id="nav"> 
-      <div class="container12">
-         <?php wp_nav_menu( array( 'theme_location' => 'topnav' ) ); ?>
-      </div>   
-   </div>
    
-   <div class="wrap container12"> <!-- content wrap begins -->
+<!-- Navigation -->    
+   <div class="navbar-wrapper">
+      <div class="container">
+         <div class="navbar">
+            <div class="navbar-inner">
+               
+               <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+               </button>
+               
+               <div class="nav-collapse collapse">
+                  <?php wp_nav_menu( array( 'theme_location' => 'topnav' ) ); ?>
+               </div> <!--/.nav-collapse -->
+            
+            </div><!-- /.navbar-inner -->
+         </div><!-- /.navbar -->
+      </div> <!-- /.container -->
+   </div><!-- /.navbar-wrapper -->
+	
